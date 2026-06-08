@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Best Friends Day, Makad 🐒</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #fff0f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── floating bubbles bg ── */
+  .bubbles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(110vh) scale(1); opacity: 0.18; }
+    100% { transform: translateY(-20vh) scale(1.1); opacity: 0; }
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #ff6b9d;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.4rem, 8vw, 5rem);
+    color: #d63384;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: #ff6b9d; }
+  .monkey-row {
+    font-size: 3rem;
+    margin: 10px 0;
+    animation: wiggle 1.4s ease-in-out infinite;
+  }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(-8deg); }
+    50%      { transform: rotate(8deg); }
+  }
+  .hero-sub {
+    font-size: 1rem;
+    color: #888;
+    max-width: 500px;
+    margin: 10px auto 0;
+    font-style: italic;
+  }
+
+  /* ── STARS decoration ── */
+  .stars-row { text-align: center; font-size: 1.4rem; margin: 8px 0; letter-spacing: 6px; }
+
+  /* ── CARD ── */
+  .card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(214,51,132,0.10);
+    max-width: 680px;
+    margin: 24px auto;
+    padding: 36px 40px;
+  }
+  @media(max-width:600px){ .card { padding: 24px 18px; margin: 14px 12px; } }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ff6b9d;
+    margin-bottom: 12px;
+  }
+  .card-text {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #444;
+  }
+  .card-text strong { color: #d63384; font-weight: 700; }
+  .card-text .hi {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #d63384;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .card.pink-card { background: linear-gradient(135deg,#fff0f7,#ffe4f0); }
+  .card.yellow-card { background: linear-gradient(135deg,#fffbea,#fff3c4); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    text-align: center;
+    color: #ffadd4;
+    font-size: 1.4rem;
+    letter-spacing: 8px;
+    margin: 8px 0;
+  }
+
+  /* ── CONFESSION BADGES ── */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+    justify-content: center;
+  }
+  .badge {
+    background: #fff0f7;
+    border: 1.5px solid #ffadd4;
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #d63384;
+  }
+
+  /* ── BESTIE CHECK SECTION ── */
+  .bestie-check {
+    text-align: center;
+    padding: 20px 10px;
+  }
+  .bestie-check h2 {
+    font-size: 1.5rem;
+    color: #d63384;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .bestie-check p { color: #888; font-size: 0.95rem; margin-bottom: 22px; }
+
+  .btn-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 60px;
+  }
+  .btn-yes, .btn-no {
+    padding: 14px 38px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-yes {
+    background: linear-gradient(135deg,#ff6b9d,#d63384);
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(214,51,132,0.30);
+  }
+  .btn-yes:hover { transform: scale(1.07); }
+  .btn-no {
+    background: #fff;
+    color: #d63384;
+    border: 2px solid #ffadd4;
+  }
+  .btn-no:hover { background: #fff0f7; }
+
+  .dhit-msg {
+    margin-top: 14px;
+    font-size: 1rem;
+    color: #e74c8b;
+    font-weight: 700;
+    display: none;
+    animation: popIn 0.35s ease;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity:0; }
+    80% { transform: scale(1.12); }
+    100% { transform: scale(1); opacity:1; }
+  }
+
+  /* ── REVEALED MESSAGE ── */
+  .revealed-msg {
+    display: none;
+    animation: fadeSlide 0.6s ease;
+  }
+  @keyframes fadeSlide {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ── TIP SECTION ── */
+  .tip-section {
+    background: linear-gradient(135deg,#fff0f7,#ffe4f0);
+    border-radius: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .tip-section h3 {
+    font-size: 1.3rem;
+    color: #d63384;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .tip-section p { color: #999; font-size: 0.9rem; margin-bottom: 20px; }
+
+  .tip-text-box { display: block; }
+
+  .tip-textarea {
+    width: 100%;
+    border: 1.5px solid #ffadd4;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: #444;
+    resize: none;
+    outline: none;
+    background: #fff;
+    margin-bottom: 14px;
+    min-height: 100px;
+  }
+  .tip-textarea:focus { border-color: #d63384; }
+
+  .send-btn {
+    background: linear-gradient(135deg,#ff6b9d,#d63384);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 36px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(214,51,132,0.25);
+  }
+  .send-btn:hover { transform: scale(1.06); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* success toast */
+  .toast {
+    display: none;
+    background: #d63384;
+    color: #fff;
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 14px;
+    animation: popIn 0.4s ease;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 16px;
+    font-size: 0.85rem;
+    color: #bbb;
+  }
+  footer span { color: #ff6b9d; }
+
+  /* confetti canvas */
+  #confetti-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Floating bubbles -->
+<div class="bubbles" id="bubbles"></div>
+
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-badge">🎉 June 8 — Best Friends Day</div>
+    <h1>Happy Best Friends<br>Day, <span>Makad</span> 🐒</h1>
+    <div class="monkey-row">🐒🌸🐒</div>
+    <p class="hero-sub">A website made with approximately 40% love and 60% boredom. You're welcome.</p>
+  </section>
+
+  <div class="stars-row">✦ ✦ ✦ ✦ ✦</div>
+
+  <!-- ── DISCLAIMER CARD ── -->
+  <div class="card pink-card" style="max-width:680px;">
+    <div class="card-label">⚠️ Important Notice First</div>
+    <div class="card-text">
+      <span class="hi">Sarvat pahile —</span>
+      Jasta khush nako hous. Hi website baghun ugach <strong>celebrity zhalyasarkha feel karu nako.</strong> Nntr prt bhav khashil 😑
+      <br><br>
+      Mi fakta <strong>bore jhalo hoto</strong> mhanun hi website banavli. 😌
+      <br><br>
+      <em style="color:#bbb; font-size:0.9rem;">(Okay fine. Maybe slightly more than boredom. But don't tell anyone.)</em>
+    </div>
+  </div>
+
+  <div class="divider">♥ ♥ ♥</div>
+
+  <!-- ── THE REAL MESSAGE ── -->
+  <div class="card">
+    <div class="card-label">🌸 The Real Talk</div>
+    <div class="card-text">
+      Pan vichar kela — itke divas <strong>majha patience test karanari</strong>, random nonsense bolun dokyacha bhuga karanari, ani pratyek goshtit <strong>argument shodhanari</strong> hi ekach vyakti aahe...
+      <br><br>
+      Tulach boltoy, <strong>boche</strong> 😂😂
+      <br><br>
+      Khara sangaycha tar, tu one of the few ahe jyanna muddamun annoy karayla mla <em>khup maja yete</em> — best entertainment honestly. Thodi <strong>vedi ahes</strong>, ani kahi veles khupach chid chid krtes ani bhav khates.
+      <br><br>
+      Pan tyach sobat — tu tya mojkya lokanmadhe ahes jyanchyasobat mi kitihi faltu bollo tari <strong>conversation kadhi boring hot nahi.</strong>
+      <br><br>
+      Mhanunach kadachit, nakalat ka hoina — <strong>tu important ahe re butke</strong> (thodi chi jasta pn ny, Uday chi garaj nahiye 😛).
+    </div>
+
+    <div class="badges">
+      <div class="badge">💥 Chief Argument Starter</div>
+      <div class="badge">🙈 Professional Bhav Khater</div>
+      <div class="badge">🎤 Certified Nonsense Speaker</div>
+      <div class="badge">🧠 Dokyacha Bhuga Specialist</div>
+      <div class="badge">❤️ Irreplaceable (Unfortunately)</div>
+    </div>
+  </div>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <!-- ── ENGLISH SECTION ── -->
+  <div class="card yellow-card">
+    <div class="card-label">🌍 Also, In English (for international audiences aka just you)</div>
+    <div class="card-text">
+      Look, I'm not going to get all mushy here — that's not our vibe. But let me be real for one second:
+      <br><br>
+      You're genuinely one of those rare people who can make a 3-hour conversation feel like 10 minutes. The annoying kind who always has a comeback, never admits they're wrong, and somehow still makes everything more fun.
+      <br><br>
+      <strong>The world would be significantly less chaotic without you. And honestly? Less fun.</strong>
+      <br><br>
+      So here's to you — the one who argues about literally everything, sends voice notes that are 4 minutes long, and yet somehow is the first person I'd call in an actual crisis.
+      <br><br>
+      <em>Still annoying. Still my best friend. Deal with it. 💁‍♀️</em>
+      <br><br>
+      Happy Best Friends Day.
+      <strong>Traas det raha, roast khat raha, ani tashich rah</strong> — karan honestly, life thodi kami entertaining asel tu annoy karayla naslis tar, <strong>makad ❤️😜</strong>
+    </div>
+  </div>
+
+  <div class="divider">♥ ♥ ♥</div>
+
+  <!-- ── BESTIE CHECK ── -->
+  <div class="card" id="bestie-section">
+    <div class="bestie-check">
+      <h2>Happy Best Friends Day! 🎉</h2>
+      <p>But wait... before we go any further...</p>
+      <div style="font-size:1.15rem; font-weight:800; color:#444; margin-bottom:20px;">
+        Are you actually my bestie? 🤔
+      </div>
+
+      <div class="btn-row" id="btn-row">
+        <button class="btn-yes" onclick="pressedYes()">✅ Yes, obviously!</button>
+        <button class="btn-no" id="noBtn" onclick="pressedNo()">❌ No</button>
+      </div>
+
+      <div class="dhit-msg" id="dhit">
+        😑 Dhit kuthli, khadyat ja... 🪣<br>
+        <span style="font-size:0.85rem; color:#bbb;">(Try again. The correct answer is YES.)</span>
+      </div>
+    </div>
+
+    <!-- Revealed after YES -->
+    <div class="revealed-msg" id="revealed">
+      <div style="text-align:center; padding: 18px 0 10px;">
+        <div style="font-size:2.5rem; margin-bottom:8px;">🎊🐒🎊</div>
+        <div style="font-family:'Dancing Script',cursive; font-size:2rem; color:#d63384; margin-bottom:6px;">
+          CORRECT ANSWER!
+        </div>
+        <div style="color:#888; font-size:0.95rem; margin-bottom:20px;">
+          See? That wasn't so hard. You do have some brain cells left 🧠
+        </div>
+      </div>
+
+      <div style="background:#fff0f7; border-radius:16px; padding:22px 20px; border-left:4px solid #ff6b9d;">
+        <div style="font-size:0.85rem; font-weight:800; letter-spacing:1px; color:#ff6b9d; text-transform:uppercase; margin-bottom:10px;">Your Official Bestie Certificate 🏅</div>
+        <p style="font-size:1rem; line-height:1.8; color:#444;">
+          This hereby certifies that <strong>Makad</strong> is an official, verified, and slightly chaotic best friend. This certificate comes with zero perks, zero privileges, and the right to be roasted anytime, anywhere. Congratulations. You earned it (somehow). 🎉
+        </p>
+      </div>
+
+      <!-- TIP SECTION -->
+      <div class="tip-section" style="margin-top:24px;" id="tip-section">
+        <h3>Ek kaam kar — 💸</h3>
+        <p>Tipni de ata chal? 😇 Website itki sundar banavli, thodi reward milayla nako ka?</p>
+
+        <!-- Text box -->
+        <div class="tip-text-box" id="tab-text">
+          <textarea class="tip-textarea" id="tipText" placeholder="Lihi ithe... (e.g. 'Tu best ahe!' or 'Paishe nahi ahet 😭')"></textarea>
+          <br>
+          <button class="send-btn" onclick="sendTip()">📨 Pathav!</button>
+          <div class="toast" id="toast-text">
+            ✅ Pathavle! Wachto aata... 😏 (Screenshot la gela via WhatsApp!)
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    Made with <span>♥</span> (and a lot of boredom) · Best Friends Day 2025 · For Makad, obviously 🐒
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+// ── Bubbles ──
+(function(){
+  const colors = ['#ffadd4','#ff6b9d','#ffe4f0','#ffd6eb','#ffb3d1','#fff0f7','#ff91c2'];
+  const wrap = document.getElementById('bubbles');
+  for(let i=0;i<22;i++){
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = 20 + Math.random()*80;
+    b.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      bottom:-${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${6+Math.random()*14}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    wrap.appendChild(b);
+  }
+})();
+
+// ── Confetti ──
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let pieces = [];
+let animating = false;
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function launchConfetti(){
+  const colors = ['#ff6b9d','#d63384','#ffadd4','#ffe082','#a8d8ea','#ff9a9e'];
+  for(let i=0;i<160;i++){
+    pieces.push({
+      x: Math.random()*canvas.width,
+      y: -20,
+      r: 4+Math.random()*8,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      speed: 2+Math.random()*5,
+      drift: (Math.random()-0.5)*3,
+      rot: Math.random()*360,
+      rotSpeed: (Math.random()-0.5)*8,
+      shape: Math.random()>0.5?'rect':'circle'
+    });
+  }
+  if(!animating){ animating=true; animConfetti(); }
+}
+
+function animConfetti(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pieces = pieces.filter(p=>p.y<canvas.height+30);
+  pieces.forEach(p=>{
+    p.y += p.speed;
+    p.x += p.drift;
+    p.rot += p.rotSpeed;
+    ctx.save();
+    ctx.translate(p.x,p.y);
+    ctx.rotate(p.rot*Math.PI/180);
+    ctx.fillStyle = p.color;
+    if(p.shape==='circle'){
+      ctx.beginPath();
+      ctx.arc(0,0,p.r,0,Math.PI*2);
+      ctx.fill();
+    } else {
+      ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
+    }
+    ctx.restore();
+  });
+  if(pieces.length>0) requestAnimationFrame(animConfetti);
+  else animating=false;
+}
+
+// ── No button runaway ──
+let noCount = 0;
+function pressedNo(){
+  noCount++;
+  const btn = document.getElementById('noBtn');
+  const dhit = document.getElementById('dhit');
+  dhit.style.display = 'block';
+
+  // Move the button randomly
+  const row = document.getElementById('btn-row');
+  const rowRect = row.getBoundingClientRect();
+  const maxX = Math.min(200, window.innerWidth - 120);
+  const randX = (Math.random()-0.5)*maxX;
+  const randY = (Math.random()-0.5)*60;
+  btn.style.transform = `translate(${randX}px, ${randY}px)`;
+  btn.style.transition = 'transform 0.3s';
+
+  if(noCount >= 3){
+    btn.innerText = "NAHI RE PLEASE 😭";
+    btn.style.fontSize = '0.75rem';
+  }
+}
+
+function pressedYes(){
+  document.getElementById('btn-row').style.display = 'none';
+  document.getElementById('dhit').style.display = 'none';
+  const rev = document.getElementById('revealed');
+  rev.style.display = 'block';
+  launchConfetti();
+  setTimeout(launchConfetti, 1200);
+}
+// ── Send text tip via WhatsApp ──
+function sendTip(){
+  const text = document.getElementById('tipText').value.trim();
+  if(!text){ alert('Kai tari lihi aadhi! 😤'); return; }
+  const phone = '917620634788'; // 🔴 Replace with your Indian number e.g. '919876543210' (91 + 10 digit number)
+  const msg = encodeURIComponent('💌 Bestie tip from website:\n\n' + text);
+  window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  document.getElementById('toast-text').style.display='block';
+  document.getElementById('tipText').value='';
+}
+
+</script>
+</body>
+</html>
